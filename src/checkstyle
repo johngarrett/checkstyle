@@ -1,9 +1,3 @@
 #!/bin/bash
-
-tmp_dir=$(mktemp -d)
-file="$1"
-echo -e "\n----------CHECK STYLE--------"
-java -jar /usr/bin/checkstyle-6.2.2.jar "$1" #change based on location of *.jar
-echo -e "\n----------JAVADOCS-----------"
-javadoc "$1" -d tmp_dir | grep -w "$1"
-rm -rf tmp_dir
+checkstyle_jar="/usr/bin/checkstyle-6.2.2.jar" # change based on jar file location
+java -jar $checkstyle_jar -a "$1" | grep -v 'Audit' #remove "Audit done..." line
